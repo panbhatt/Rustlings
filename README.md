@@ -14,3 +14,26 @@ cargo -V
 ### Windows: Its quite complex, lets leave it. 
 
 
+## Important commands to remember
+- cargo new package  -> Create new project (--lib for library)
+- cargo test (npm test)
+- cargo run (npm run index.js)
+- cargo publish
+- cargo bench
+- cargo build   (--release for release builds
+- cargo doc
+
+## Important Cargo extensions
+cargo install just -> install a better makefile tool
+cargo install cargo-edit -> Add commands to the cargo exe
+cargo install cargo-workspaces 
+cargo install cargo-expand
+
+
+## VS Code Extension to install for RUST
+- Rust-analyzer (language server)
+- cargo
+- linter
+- codelldb
+- BetterTOML 
+
