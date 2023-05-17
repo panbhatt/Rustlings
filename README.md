@@ -41,4 +41,4 @@ cargo install cargo-expand
 
 --------------------------------------------------------------------
 
-Chapter 1: [Video_1_Guessing_Game](Video_1_Guessing_Game.)
+Chapter 1: [Video_1_Guessing_Game](Video_1_Guessing_game/src/main.rs)
