@@ -1,5 +1,5 @@
 # Rustlings
-This Repository contains all the examples from the Rust Book. This is going to be a REPO for me to store my Rust documentation and the program I am creating in between. 
+This Repository contains all the examples from the Rust Book. This is going to be a REPO for me to store my Rust documentation and the programs I am creating in between. 
 
 I am following Let's get Rusty Channel on youtube that will take us through the RUST Documentation and coding at the same time. 
 
@@ -37,3 +37,8 @@ cargo install cargo-expand
 - codelldb
 - BetterTOML 
 
+
+
+--------------------------------------------------------------------
+
+Chapter 1: [Video_1_Guessing_Game](Video_1_Guessing_Game.)
