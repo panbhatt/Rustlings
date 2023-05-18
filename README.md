@@ -37,7 +37,8 @@ cargo install cargo-expand
 - codelldb
 - BetterTOML 
 
-
+## Rust PlayGround
+- https://play.rust-lang.org
 
 --------------------------------------------------------------------
 
