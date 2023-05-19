@@ -10,4 +10,5 @@ fn main() {
 
     
     println!(" My Age is = {:?}  - {:#?} ", age, age ) ;   // This is DEBUG PRINT, will print empty () if nothing is returned. if lin no 8 is enabled. it will print 67. 
+    // This would be very useful when we are going to create our own STRUCT and data structures. 
 }
