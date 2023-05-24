@@ -42,7 +42,7 @@ fn main() {
 }
 
 fn takesOwnership(state : String) -> String {
-    println!("takeOwnership -> state : {state}"); 
+    println!("takeOwnership -> state : {state}");  
 
     state
 }
