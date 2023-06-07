@@ -33,7 +33,7 @@ fn main() {
     println!("Emp Name : {} Age : {}", me.get_name(), me.get_age());
     println!("======================================"); 
     me.age = 40 ; 
-    println!("Emp Name : {} Age : {}", me.get_name(), me.get_age());
+    println!("Emp Name : {} Age :  {}", me.get_name(), me.get_age());
 
     println!("======================================"); 
     let friend = Employee::new1(); 
