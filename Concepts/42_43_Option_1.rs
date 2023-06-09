@@ -22,8 +22,28 @@ fn main() {
     println!("{:?}", take_fifth(ages.clone())); // Here we are going to get teh value 38
 
     let short_ages = ages[0..2].to_vec();
-    println!("{:?}", take_fifth(short_ages)); // Here we are going to get NONE.
+    println!("{:?}", take_fifth(short_ages.clone())); // Here we are going to get NONE.
 
     // Unwrap to get the value.
     println!("{:?}", take_fifth(ages.clone()).unwrap()); // If unwrap returns NONE, it would panic.
+
+    //println!("{:?}", take_fifth(short_ages.clone()).expect("Absolutely need at least 5 items to work")); // Use of Expect function. Panic with this message.
+
+    // Better way is to use MATCH.
+    let fifth_ele = take_fifth(short_ages.clone());
+    match fifth_ele {
+        Some(number) => println!("{:?}", number),
+        None => println!("Error -> Absolutely need at least 5 items to work from MATCH "),
+    }
+
+    handle_option(fifth_ele);
+    handle_option(take_fifth(ages.clone()));
+}
+
+// Generalization of the Option handler.
+fn handle_option(option: Option<i32>) {
+    match option {
+        Some(number) => println!("{:?}", number),
+        None => println!("NONE"),
+    }
 }
