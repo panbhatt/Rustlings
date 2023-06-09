@@ -4,8 +4,8 @@ This Repository contains all the examples from the Rust Book. This is going to b
 I am following Let's get Rusty Channel on youtube that will take us through the RUST Documentation and coding at the same time. 
 
 ## YouTube links to Learn: 
-https://www.youtube.com/watch?v=BpPEoZW5IiY
-https://www.youtube.com/watch?v=un6ZyFkqFKo
+    - https://www.youtube.com/watch?v=BpPEoZW5IiY
+    - https://www.youtube.com/watch?v=un6ZyFkqFKo
 
 
 ## RUST INSTALLATION
