@@ -38,6 +38,21 @@ fn main() {
 
     handle_option(fifth_ele);
     handle_option(take_fifth(ages.clone()));
+
+    // Us eof is_some and is_none function. 
+    let mut ele = take_fifth(ages.clone()); 
+    if ele.is_some() {
+        println!("VALUE {:?}", ele.unwrap());
+    } else {
+        println!(" -> It is NONE");
+    }
+
+    println!("====================================="); 
+
+    let ele = take_fifth(short_ages.clone()); 
+    println!("{:?}", ele.unwrap_or(-1 ));
+    println!("{:?}", ele.unwrap_or_default()); // will give default fo the TYpe of T present in the option 
+
 }
 
 // Generalization of the Option handler.
