@@ -6,6 +6,9 @@ I am following Let's get Rusty Channel on youtube that will take us through the 
 ## YouTube links to Learn: 
     - https://www.youtube.com/watch?v=BpPEoZW5IiY
     - https://www.youtube.com/watch?v=un6ZyFkqFKo
+    - https://www.youtube.com/playlist?list=PLai5B987bZ9CoVR-QEIN9foz4QCJ0H2Y8   (Lets' get RUSTY)
+    - https://www.youtube.com/watch?v=-lYeJeQ11OI ( Easy Rust, this is what I am following)
+
 
 
 ## RUST INSTALLATION
