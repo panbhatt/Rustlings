@@ -14,16 +14,14 @@ fn main() {
         println!("No Valid Number passed");
     }
 
-    println!("========================================="); 
-    let numbers = vec!["5", "Pankaj", "67", "sixtyseven", "eight", "8989"]; 
+    println!("=========================================");
+    let numbers = vec!["5", "Pankaj", "67", "sixtyseven", "eight", "8989"];
 
     for number in numbers {
-        let result = parse_integer(number); 
+        let result = parse_integer(number);
         let result_number = match result {
-            Ok(n) => println!("{}", n) ,
-            Err(e) => println!("{}", e), 
+            Ok(n) => println!("{}", n),
+            Err(e) => println!("{}", e),
         };
-    } 
-
-
+    }
 }
