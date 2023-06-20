@@ -32,6 +32,6 @@ fn main() {
         age: 37,
     };
 
-    me.print(); // This is a trait that comes
+    me.print(); // This is a trait that comes from the TRAIT 
     me.fly(); // This wil print the name as the TRAIT function has been overridden.
 }
