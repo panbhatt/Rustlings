@@ -1,4 +1,4 @@
-// This program will implement multiple traits to multiple STRUCTS. 
+// This program will implement multiple traits to multiple STRUCTS.
 
 struct Fighter {
     name: String,
@@ -21,7 +21,7 @@ trait HitWithinRange {
 }
 
 trait HitWithWaterAir {
-    fn hit_water(&self);
+    fn hit_water(&self) where Self: std::fmt::Debug;
     fn hit_air(&self);
 }
 
