@@ -31,7 +31,7 @@ impl From<Vec<Employee>> for Organization {
 
 impl Organization {
     fn print_employees(&self) {
-        println!("===================PRINTING ALL EMPLOYEES=================="); 
+        println!("===================PRINTING ALL EMPLOYEES==================");
         for emp in &self.employees {
             println!("{:?}", emp);
         }
@@ -49,5 +49,5 @@ fn main() {
 
     println!("Length of ORg EMployees -> {}", org.employees.len());
 
-    org.print_employees(); 
+    org.print_employees();
 }
