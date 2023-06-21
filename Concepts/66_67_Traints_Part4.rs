@@ -1,7 +1,7 @@
 // This program will implement multiple traits to multiple STRUCTS.
 
+use std::clone::Clone;
 use std::fmt::Debug;
-use std::clone::Clone; 
 
 #[derive(Debug, Clone)]
 struct Fighter {
@@ -32,7 +32,7 @@ trait HitWithWaterAir {
     fn hit_air(&self);
 }
 
-trait HitWithHand: Debug + Clone{
+trait HitWithHand: Debug + Clone {
     // This trait requires that the DEBUG should be implemented by the struct, otherwise compile time error.
     fn hit_hand(&self);
 }
