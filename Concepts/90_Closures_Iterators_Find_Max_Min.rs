@@ -20,7 +20,7 @@ fn main() {
         println!("80 is not found in the vector ");
     }
 
-    println!("=============EVERY NUMBER TYPE HAS MIN/mAX====================");
+    println!("=============EVERY NUMBER TYPE HAS MIN/MAX====================");
     println!("{} - {}", u8::MAX, u8::MIN);
     println!("{} - {}", i32::MAX, i32::MIN);
     println!("{} - {}", f32::MAX, f32::MIN);
