@@ -29,5 +29,5 @@ fn main() {
     let even_odd_vec = EvenOddVec::from(number_vec);
 
     println!("EVEN VEC -> {:?}", even_odd_vec.0[0]); // Accessible 0th element
-    println!("ODD VEC -> {:?}", even_odd_vec.0[1]); // Accessible 1st element of the tuple. 
+    println!("ODD VEC -> {:?}", even_odd_vec.0[1]); // Accessible 1st element of the tuple.
 }

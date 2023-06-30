@@ -38,6 +38,6 @@ fn main() {
         println!(" CENSUS NOT AVAILABLE for year 2015");
     }
 
-    let delhi_2017_population = delhi.population[&2020];  // If the Key is not found that it is going to PANIC and exit. 
+    let delhi_2017_population = delhi.population[&2020]; // If the Key is not found that it is going to PANIC and exit.
     println!(" DELHI POPULATION -> {:?}", delhi_2017_population);
 }
