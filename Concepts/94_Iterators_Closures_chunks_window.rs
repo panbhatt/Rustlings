@@ -10,7 +10,7 @@ fn main() {
         println!("{:?}", chunk);
     }
 
-    println!("==================== WINDOWS ========================="); 
+    println!("==================== WINDOWS =========================");
     for window in my_numbers.windows(3) {
         println!("{:?}", window);
     }
