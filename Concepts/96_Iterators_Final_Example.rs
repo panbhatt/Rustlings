@@ -25,11 +25,12 @@ fn main() {
 
     let mut personalities_itr = personalities_names.iter().peekable();
 
-    // Here You can also use split_whitespace() to split and check. 
+    // Here You can also use split_whitespace() to split and check.
 
     while personalities_itr.peek().is_some() {
         let name = personalities_itr.peek().unwrap();
-        match name.match_indices(' ').collect::<Vec<_>>().len() {
+//        match name.match_indices(' ').collect::<Vec<_>>().len() {
+    match name.match_indices(' ').count() {
             0 => names.one_word.push(name.to_string()),
             1 => names.two_words.push(name.to_string()),
             2 => names.three_words.push(name.to_string()),
