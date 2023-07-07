@@ -27,3 +27,5 @@ fn main() {
         date_founded : 1660, 
     };
 }
+
+// TUTORIAL on Rust lifetimes: https://www.youtube.com/watch?v=1QoT9fmPYr8 
