@@ -28,7 +28,7 @@ fn main() {
 
     println!("Return Borrow -> {:#?}", nokia_phone);
 
-    *nokia_phone.discount.borrow_mut() = 20; // This is another shortcut that saves three line. 
+    *nokia_phone.discount.borrow_mut() = 20; // This is another shortcut that saves three line.
 
     println!("Return Borrow On Discount -> {:#?}", nokia_phone);
 }
