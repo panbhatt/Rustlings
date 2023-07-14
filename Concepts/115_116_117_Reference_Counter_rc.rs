@@ -80,4 +80,12 @@ fn main() {
 
     println!("Delray Beach Details -> {:?}", delray_beach); // Now we can use it without problem. 
     // RC is just another smart pointer to the data . 
+
+    println!("============================== MORE FUNCTIONS on RC ====================="); 
+    println!("No of Counters over a specific allocation - {}", Rc::strong_count(&delray_beach.name));; // it will  give 2, because one is with the object
+    // and another one is with the City_history (c_h) vector. s
+    // we can use std::mem::drop(c_h) to drop one count and it will come back to 1. 
+
+    // try_unwrap function over RC will return only where there is one count and if there is > 1, it wont' do it. 
+    println!("{:?}", Rc::try_unwrap(delray_beach.name).unwrap()) // This will panic 
 }
