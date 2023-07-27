@@ -22,6 +22,11 @@ fn main() {
     crate::print::print_me("Pankaj Bhatt"); 
 
     let kick_value = crate::play::kick(100); 
-    println!("Getting value from KICK = {}", kick_value); 
+    println!("Getting value from KICK = {}", kick_value);
+
+    use crate::print::print_me; // Bring it in current scope. 
+
+    print_me(800); 
+    print_me("Pringing a number ") ;
 
 }
