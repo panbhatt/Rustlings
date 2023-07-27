@@ -2,6 +2,8 @@ use std::ops::{Deref, DerefMut};
 
 // we are implementing a DEREF for an EMployee that will automatically deref in its AGE.
 
+// DEREF n DEREF MUT is basically implemented for Smart Pointers. 
+
 // https://fongyoong.github.io/easy_rust/Chapter_59.html
 
 #[derive(Debug)]
