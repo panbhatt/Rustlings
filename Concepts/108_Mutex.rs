@@ -22,7 +22,7 @@ fn main() {
     println!("{:?}", my_mutex);
 
     println!("======================= SIMPLEST WAY - IN ONE LINE ================");
-    *my_mutex.lock().unwrap() = 50000; 
-    *my_mutex.lock().unwrap() = 5000000; 
+    *my_mutex.lock().unwrap() = 50000;
+    *my_mutex.lock().unwrap() = 5000000;
     println!("{:?}", my_mutex);
 }
