@@ -14,7 +14,7 @@ fn math(input: &str) -> i32 {
     }
 
     let input = input
-        .trim_end_matches(|x| "+-".contains(x))
+        .trim_end_matches(|x| "+- ".contains(x))
         .chars()
         .filter(|x| *x != ' ')
         .collect::<String>();
@@ -64,9 +64,8 @@ fn math(input: &str) -> i32 {
     // Now Iterate through the VEC
     let mut total = 0 ; 
     let  mut operation_add = true ; 
-    let mut result_vec_iter = result_vec.iter(); 
 
-    while let Some(entry) = result_vec_iter.next() {
+    for entry in result_vec {
         if entry.contains('-') {
             if entry.chars().count() % 2 != 0 {
                 operation_add = false  // change the operation. 
@@ -88,7 +87,7 @@ fn math(input: &str) -> i32 {
 
 fn main() {
     math("1 - 25 ++++ 3 ++++");
-    math("1 + 20 - 3 ++++-----");
+    math("1 + 20 - 3 ++++-----  ");
 }
 
 // Tests
@@ -116,5 +115,10 @@ mod tests {
     #[should_panic]
     fn test_invalid_characters() {
         assert_eq!(math("---2325 *  1"), 24);
+    }
+
+    #[test]
+    fn test_Nine_plus_nine_minus_nine_minus_nine() {
+        assert_eq!(math("9+9-9-9"), 0 ); 
     }
 }
