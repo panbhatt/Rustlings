@@ -1,0 +1,6 @@
+{
+    "rust-analyzer.linkedProjects": [
+        "./Concepts/External_Crates_155_156/Cargo.toml",
+        "./Concepts/External_Crates_155_156/Cargo.toml"
+    ]
+}
