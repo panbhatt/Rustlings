@@ -2,9 +2,12 @@ use elapsed::measure_time;
 use rayon::prelude::*;
 
 use serde::{Deserialize, Serialize};
+use serde_json; 
 
-println!("Elapsed time = {:?} ", elapsed);
+
+#[derive(Debug, Serialize, Deserialize)]
 struct Employee {
+    
     name: String,
     age: u8,
 }
@@ -43,5 +46,12 @@ fn main() {
     };
 
     let emp_as_json = serde_json::to_string(&emp).unwrap(); 
+    println!("JSON = {}", emp_as_json);
+
+    // Trying to get the Struct back from JSON. 
+    let mut new_emp : Employee = serde_json::from_str(&emp_as_json).unwrap(); 
+    new_emp.name = "Rahul Gupta".into(); 
+    new_emp.age = 45; 
+    println!("Parse New Employee = {:?}", new_emp); 
     
 }
