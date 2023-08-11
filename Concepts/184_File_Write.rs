@@ -3,7 +3,7 @@ use std::io::Error;
 use std::io::Write;
 
 
-
+// This program will write the file. 
 fn main() {
     let file_name = "./abc.txt";
     let file_content = " This is the first file content \n. I dont know how i did this \n";
