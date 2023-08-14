@@ -1,2 +1,8 @@
  This is the first file content 
 . I dont know how i did this 
+
+
+SystemTime { tv_sec: 1692039996, tv_nsec: 118180161 }
+This is the content that needs to be written
+
+SystemTime { tv_sec: 1692039996, tv_nsec: 118180161 }
