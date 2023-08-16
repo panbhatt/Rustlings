@@ -9,7 +9,6 @@ struct ErrorListener {
 
 lazy_static! {
 // This whole code block is a problem unless wrapped in lazystatic macro as we are trying to generate static constants at runtime which is wrong.
-//REF also needs to be added. 
 //static ERROR_LISTENER : ErrorListener = ErrorListener {
 static ref ERROR_LISTENER : ErrorListener = ErrorListener {
     url : "http://localhost:8080".to_string(),
