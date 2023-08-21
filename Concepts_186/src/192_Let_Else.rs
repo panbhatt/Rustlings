@@ -4,9 +4,11 @@ fn main() {
     println!("Result is -> {:?}", parse_number);
     if let Ok(num) = parse_number {
         println!("\tNumber -> {:?}", num); 
+    } else {
+        println!("This would never get printed"); 
     }
 
-    // Inverse of above IF LET is LET ELSE. 
+    // Inverse of above IF LET is LET ELSE. This is just an improvement over the above ELSE pattern. 
 
     println!("========================================="); 
 
