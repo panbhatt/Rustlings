@@ -44,6 +44,8 @@ cargo install cargo-expand
 - linter
 - codelldb
 - BetterTOML 
+- Crates
+- Error Lens
 
 ## Rust PlayGround
 - https://play.rust-lang.org
