@@ -34,10 +34,10 @@ fn main() {
 /*
 This will give output
 
-ONE GiveName Returns :> ONE 
-TWO GiveName Returns :> TWO 
+ONE GiveName Returns :> ONE
+TWO GiveName Returns :> TWO
 
-Now we have to implement the same via ENUM in Part 2. 
+Now we have to implement the same via ENUM in Part 2.
 
 
 */

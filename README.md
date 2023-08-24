@@ -57,3 +57,12 @@ Chapter 1: [Video_1_Guessing_Game](Video_1_Guessing_game/src/main.rs)
 --------------------------------------------------------------------
 ## Interesting Blogs: 
 https://rauljordan.com/rust-concepts-i-wish-i-learned-earlier/ 
+RUst Module System Explained [RUST_MODULE_SYSTEM](https://www.sheshbabu.com/posts/rust-module-system/)
+Rust - Simplifying the Toughest parts [https://www.youtube.com/watch?v=TJTDTyNdJdY](https://www.youtube.com/watch?v=TJTDTyNdJdY)
+
+
+--------------------------------------------------------------
+# WEB FRAMMEWORKS
+--------------------------------
+## AXUM
+    [https://www.youtube.com/playlist?list=PLrmY5pVcnuE-_CP7XZ_44HN-mDrLQV4nS](https://www.youtube.com/playlist?list=PLrmY5pVcnuE-_CP7XZ_44HN-mDrLQV4nS) 

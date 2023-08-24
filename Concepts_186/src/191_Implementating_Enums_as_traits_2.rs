@@ -21,9 +21,9 @@ impl GiveName {
     }
 }
 
-#[derive(Debug,Copy, Clone)]
+#[derive(Debug, Copy, Clone)]
 struct One;
-#[derive(Debug,Copy, Clone)]
+#[derive(Debug, Copy, Clone)]
 struct Two;
 
 impl One {
