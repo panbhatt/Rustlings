@@ -37,6 +37,7 @@ cargo install just -> install a better makefile tool
 cargo install cargo-edit -> Add commands to the cargo exe
 cargo install cargo-workspaces 
 cargo install cargo-expand
+cargo install cargo-watch -> Used like nodemon
 
 
 ## VS Code Extension to install for RUST
@@ -67,3 +68,6 @@ Rust - Simplifying the Toughest parts [https://www.youtube.com/watch?v=TJTDTyNdJ
 --------------------------------
 ## AXUM
     [https://www.youtube.com/playlist?list=PLrmY5pVcnuE-_CP7XZ_44HN-mDrLQV4nS](https://www.youtube.com/playlist?list=PLrmY5pVcnuE-_CP7XZ_44HN-mDrLQV4nS) 
+    - cargo watch -x run -> for continously running the project. 
+    
+    - cargo doc --open -> it will open a browser and show the offline documentation of all the crates that the project is using. 
