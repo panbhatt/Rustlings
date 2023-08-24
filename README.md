@@ -33,11 +33,11 @@ cargo -V
 - cargo doc
 
 ## Important Cargo extensions
-cargo install just -> install a better makefile tool
-cargo install cargo-edit -> Add commands to the cargo exe
-cargo install cargo-workspaces 
-cargo install cargo-expand
-cargo install cargo-watch -> Used like nodemon
+- cargo install just -> install a better makefile tool
+- cargo install cargo-edit -> Add commands to the cargo exe
+- cargo install cargo-workspaces 
+- cargo install cargo-expand
+- cargo install cargo-watch -> Used like nodemon
 
 
 ## VS Code Extension to install for RUST
@@ -58,16 +58,15 @@ Chapter 1: [Video_1_Guessing_Game](Video_1_Guessing_game/src/main.rs)
 
 --------------------------------------------------------------------
 ## Interesting Blogs: 
-https://rauljordan.com/rust-concepts-i-wish-i-learned-earlier/ 
-RUst Module System Explained [RUST_MODULE_SYSTEM](https://www.sheshbabu.com/posts/rust-module-system/)
-Rust - Simplifying the Toughest parts [https://www.youtube.com/watch?v=TJTDTyNdJdY](https://www.youtube.com/watch?v=TJTDTyNdJdY)
+- https://rauljordan.com/rust-concepts-i-wish-i-learned-earlier/ 
+- RUst Module System Explained [RUST_MODULE_SYSTEM](https://www.sheshbabu.com/posts/rust-module-system/)
+- Rust - Simplifying the Toughest parts [https://www.youtube.com/watch?v=TJTDTyNdJdY](https://www.youtube.com/watch?v=TJTDTyNdJdY)
 
 
 --------------------------------------------------------------
-# WEB FRAMMEWORKS
+# WEB FRAMEWORKS
 --------------------------------
 ## AXUM
-    [https://www.youtube.com/playlist?list=PLrmY5pVcnuE-_CP7XZ_44HN-mDrLQV4nS](https://www.youtube.com/playlist?list=PLrmY5pVcnuE-_CP7XZ_44HN-mDrLQV4nS) 
-    - cargo watch -x run -> for continously running the project. 
-    
-    - cargo doc --open -> it will open a browser and show the offline documentation of all the crates that the project is using. 
+- [https://www.youtube.com/playlist?list=PLrmY5pVcnuE-_CP7XZ_44HN-mDrLQV4nS](https://www.youtube.com/playlist?list=PLrmY5pVcnuE-_CP7XZ_44HN-mDrLQV4nS) 
+- cargo watch -x run -> for continuously running the project.   
+- cargo doc --open -> it will open a browser and show the offline documentation of all the crates that the project is using. 
