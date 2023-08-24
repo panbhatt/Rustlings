@@ -8,6 +8,7 @@ I am following Let's get Rusty Channel on youtube that will take us through the 
     - https://www.youtube.com/watch?v=un6ZyFkqFKo
     - https://www.youtube.com/playlist?list=PLai5B987bZ9CoVR-QEIN9foz4QCJ0H2Y8   (Lets' get RUSTY)
     - https://www.youtube.com/watch?v=-lYeJeQ11OI ( Easy Rust, this is what I am following)
+    - Crust Of Rust [https://www.youtube.com/playlist?list=PLqbS7AVVErFiWDOAVrPt7aYmnuuOLYvOa](https://www.youtube.com/playlist?list=PLqbS7AVVErFiWDOAVrPt7aYmnuuOLYvOa)  - Must watch - by Jon Gjengset
 
 
 
