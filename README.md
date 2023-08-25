@@ -62,6 +62,7 @@ Chapter 1: [Video_1_Guessing_Game](Video_1_Guessing_game/src/main.rs)
 - https://rauljordan.com/rust-concepts-i-wish-i-learned-earlier/ 
 - RUst Module System Explained [RUST_MODULE_SYSTEM](https://www.sheshbabu.com/posts/rust-module-system/)
 - Rust - Simplifying the Toughest parts [https://www.youtube.com/watch?v=TJTDTyNdJdY](https://www.youtube.com/watch?v=TJTDTyNdJdY)
+- How to better start with RUST [https://www.youtube.com/watch?v=BU1LYFkpJuk](https://www.youtube.com/watch?v=BU1LYFkpJuk)
 
 
 --------------------------------------------------------------

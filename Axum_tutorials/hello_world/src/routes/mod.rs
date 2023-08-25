@@ -1,11 +1,14 @@
 
 mod hello_world; 
 mod user_controller; 
+mod user_path_variables; 
 
 use axum::{Router, routing::{get,post}} ; 
 
 use hello_world::hello_universe; 
 use user_controller::{post_user_data, post_user_data_json }; 
+use user_path_variables::{get_user}; 
+
 
 pub fn create_routes() -> Router<>{
     let  router = Router::new()
@@ -13,6 +16,7 @@ pub fn create_routes() -> Router<>{
     .route("/hello", get(|| async { "HELLO"}))
     .route("/universe", post(hello_universe))
     .route("/user", post(post_user_data))
+    .route("/user/:id", get(get_user))
     .route("/user/create", post(post_user_data_json)); 
     return router;
 
