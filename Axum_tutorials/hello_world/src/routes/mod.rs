@@ -5,10 +5,13 @@ mod user_path_variables;
 mod user_query_params; 
 mod user_headers; 
 mod middlewares; 
+mod middleware_custom_handler; 
+mod auth_middleware; 
 
 use axum::{Router, routing::{get,post}, Extension} ; 
 use axum::{
-  http::{Request, header::HeaderMap, Method}
+  http::{Request, header::HeaderMap, Method},
+  middleware, 
 }; 
 use tower_http::cors::{CorsLayer, Any}; 
 
@@ -19,6 +22,8 @@ use user_path_variables::{get_user};
 use user_query_params::{get_user_query_params};
 use user_headers::{get_user_headers, get_user_agent,get_custom_header} ;
 use middlewares::{get_middleware_msg}; 
+use middleware_custom_handler::custom_middleware_handler; 
+use auth_middleware::{set_auth_middleware}; 
 
 
 #[derive(Clone)]
@@ -36,6 +41,8 @@ pub fn create_routes() -> Router<>{
     };
 
     let  router = Router::new()
+    .route("/middleware/custom/header", get(custom_middleware_handler  ))
+    .route_layer(middleware::from_fn(set_auth_middleware))
     .route("/", get(hello_world))
     .route("/hello", get(|| async { "HELLO"}))
     .route("/universe", post(hello_universe))
@@ -48,7 +55,8 @@ pub fn create_routes() -> Router<>{
     .route("/user/create", post(post_user_data_json))
     .route("/middleware/message", get(get_middleware_msg  ))
     .layer(cors)
-    .layer(Extension(session_info)); 
+    .layer(Extension(session_info));
+   
     return router;
 
 } 
