@@ -8,6 +8,7 @@ mod middlewares;
 mod middleware_custom_handler; 
 mod auth_middleware; 
 mod custom_statuscodes; 
+mod returns_201;
 
 use axum::{Router, routing::{get,post}, Extension} ; 
 use axum::{
@@ -26,6 +27,7 @@ use middlewares::{get_middleware_msg};
 use middleware_custom_handler::custom_middleware_handler; 
 use auth_middleware::{set_auth_middleware}; 
 use custom_statuscodes::set_custom_status_code; 
+use returns_201::set_custom_201; 
 
 
 #[derive(Clone)]
@@ -57,6 +59,8 @@ pub fn create_routes() -> Router<>{
     .route("/user/create", post(post_user_data_json))
     .route("/middleware/message", get(get_middleware_msg  ))
     .route("/custom/status", get(set_custom_status_code))
+    .route("/custom/status/create", post(set_custom_201))
+    
     .layer(cors)
     .layer(Extension(session_info));
    
