@@ -6,6 +6,11 @@ mod user_query_params;
 mod user_headers; 
 
 use axum::{Router, routing::{get,post}} ; 
+use axum::{
+  http::{Request, header::HeaderMap, Method}
+}; 
+use tower_http::cors::{CorsLayer, Any}; 
+
 
 use hello_world::hello_universe; 
 use user_controller::{post_user_data, post_user_data_json }; 
@@ -15,6 +20,10 @@ use user_headers::{get_user_headers, get_user_agent,get_custom_header} ;
 
 
 pub fn create_routes() -> Router<>{
+
+  // CORS Implementation - comes from tower-http
+  let cors = CorsLayer::new().allow_methods([Method::GET, Method::POST]).allow_origin(Any); 
+
     let  router = Router::new()
     .route("/", get(hello_world))
     .route("/hello", get(|| async { "HELLO"}))
@@ -25,7 +34,8 @@ pub fn create_routes() -> Router<>{
     .route("/user/headers/user_agent", get(get_user_agent) )
     .route("/user/headers/custom", get(get_custom_header) )
     .route("/user/:id", get(get_user))
-    .route("/user/create", post(post_user_data_json)); 
+    .route("/user/create", post(post_user_data_json))
+    .layer(cors); 
     return router;
 
 } 
