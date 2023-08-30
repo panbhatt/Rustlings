@@ -10,6 +10,7 @@ mod auth_middleware;
 mod custom_statuscodes; 
 mod returns_201;
 mod return_json; 
+mod validate_body;
 
 use axum::{Router, routing::{get,post}, Extension} ; 
 use axum::{
@@ -30,6 +31,7 @@ use auth_middleware::{set_auth_middleware};
 use custom_statuscodes::set_custom_status_code; 
 use returns_201::set_custom_201; 
 use return_json::{get_json, get_json_with_status} ; 
+use validate_body::{validate_user_body};
 
 
 #[derive(Clone)]
@@ -64,6 +66,7 @@ pub fn create_routes() -> Router<>{
     .route("/custom/status/create", post(set_custom_201))
     .route("/getjson", get(get_json) )
     .route("/getjson/status", get(get_json_with_status) )
+    .route("/validate/body", post(validate_user_body))
     .layer(cors)
     .layer(Extension(session_info));
    
