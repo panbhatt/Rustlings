@@ -47,7 +47,8 @@ pub async fn user_detail_typed(params: PathParamTyped) -> impl IntoResponse {
 
     let db_url = dotenv!("DATABASE_URL"); 
     println!("{}", db_url);
-    connect_db(db_url).await; 
+    let dbconn = connect_db(db_url).await; 
+    println!("DB CONN = {:#?}", dbconn); 
     run().await; 
 
 }
