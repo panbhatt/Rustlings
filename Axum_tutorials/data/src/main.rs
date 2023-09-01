@@ -10,6 +10,10 @@ use axum::{
 };
 use axum_extra::routing::{RouterExt, TypedPath};
 use serde::{Deserialize, Serialize};
+use dotenvy::dotenv;
+use std::env;  
+use dotenvy_macro::dotenv; 
+use datadb::connect_db; 
 
 fn app() -> Router {
     Router::new()
@@ -39,7 +43,11 @@ pub async fn user_detail_typed(params: PathParamTyped) -> impl IntoResponse {
 
 #[tokio::main]
  async fn main() {
-    
+    dotenv().ok(); 
+
+    let db_url = dotenv!("DATABASE_URL"); 
+    println!("{}", db_url);
+    connect_db(db_url).await; 
     run().await; 
 
 }
