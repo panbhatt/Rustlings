@@ -1,4 +1,4 @@
-// COde from https://mixi-developers.mixi.co.jp/how-to-use-type-safe-routing-of-axum-c06c1b1b1ab  
+// CODE from https://mixi-developers.mixi.co.jp/how-to-use-type-safe-routing-of-axum-c06c1b1b1ab  
 
 use axum::{
     routing::get,
