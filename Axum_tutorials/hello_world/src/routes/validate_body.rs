@@ -20,4 +20,5 @@ pub async fn validate_user_body(Json(req_user) : Json<RequestUser>) -> Response 
         Json(req_user)
     ).into_response()
 
+    
 }
