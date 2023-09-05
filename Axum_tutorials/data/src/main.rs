@@ -7,17 +7,24 @@ use axum::{
     response::IntoResponse,
     Router,
     Json,
+    Extension
 };
+use sea_orm:: { DatabaseConnection };
 use axum_extra::routing::{RouterExt, TypedPath};
 use serde::{Deserialize, Serialize};
 use dotenvy::dotenv;
 use std::env;  
 use dotenvy_macro::dotenv; 
 use datadb::connect_db; 
+use datadb::controllers::{
+    block_controller::get_block
+};
 
-fn app() -> Router {
+fn app(dc : DatabaseConnection) -> Router {
     Router::new()
         .route("/api/users/:user_id", get(user_detail))
+        .route("/api/blocks/:block_id", get(get_block))
+        .layer(Extension(dc))
         .typed_get(user_detail_typed) // THis is the new way to run it. 
 }
 
@@ -47,14 +54,14 @@ pub async fn user_detail_typed(params: PathParamTyped) -> impl IntoResponse {
 
     let db_url = dotenv!("DATABASE_URL"); 
     println!("{}", db_url);
-    let dbconn = connect_db(db_url).await; 
+    let dbconn = connect_db(db_url).await.unwrap(); 
     println!("DB CONN = {:#?}", dbconn); 
-    run().await; 
+    run(dbconn).await; 
 
 }
 
 
-pub async fn run() {
-    let app_router = app(); 
+pub async fn run(db : DatabaseConnection) {
+    let app_router = app(db); 
     axum::Server::bind(&"0.0.0.0:3000".parse().unwrap()).serve(app_router.into_make_service()).await.unwrap() 
 }
