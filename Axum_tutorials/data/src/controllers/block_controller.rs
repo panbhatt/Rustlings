@@ -1,7 +1,9 @@
 use sea_orm::{DatabaseConnection,Set, ActiveModelTrait} ; 
 use axum::{Extension, Json} ; 
+use axum::extract::Path; 
 use axum::http::StatusCode; 
 use axum::response::{Response, IntoResponse}; 
+use log::{info, warn};
 //use crate::models::prelude::Blocks; 
 //use super::super::models::blocks; 
 use crate::models::{
@@ -23,9 +25,24 @@ pub struct ResponseBlock {
     message : String 
 }
 
+#[derive(Debug, Serialize, Deserialize)]
+pub struct BlockDataResponse {
+    pub hash : String, 
+    pub tx_count : i64, 
+    pub number : i64,
+}
 
-pub async fn get_block(Extension(db) : Extension<DatabaseConnection>) -> String{
-    "Pankj Bhatt - Sample Block".to_string()
+// This function will return the 
+pub async fn get_block(Extension(db) : Extension<DatabaseConnection>, Path(block_hash) : Path<String>) -> Response {
+    
+    info!(">> get_block function with arguments -> {}", block_hash); 
+
+    ( StatusCode::OK, 
+        Json(BlockDataResponse{
+         hash : "asdasfd".to_owned(), 
+         tx_count : 10, 
+         number : 232332, 
+    })).into_response()
 
 }
 
@@ -60,3 +77,5 @@ pub async fn create_block(Extension(db) : Extension<DatabaseConnection>, Json(bl
     ).into_response()
     
     }
+
+    

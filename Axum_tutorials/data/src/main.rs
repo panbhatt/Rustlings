@@ -19,6 +19,8 @@ use datadb::controllers::{
     block_controller::get_block,
     block_controller::create_block, 
 };
+use env_logger; 
+use log::{info, warn, error}; 
 
 fn app(dc : DatabaseConnection) -> Router {
     Router::new()
@@ -51,7 +53,11 @@ pub async fn user_detail_typed(params: PathParamTyped) -> impl IntoResponse {
 
 #[tokio::main]
  async fn main() {
+    info!("Application is starting up ");
+    env_logger::init();
     dotenv().ok(); 
+
+    
 
     let db_url = dotenv!("DATABASE_URL"); 
     println!("{}", db_url);
