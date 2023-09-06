@@ -12,8 +12,7 @@ use axum::{
 use sea_orm:: { DatabaseConnection };
 use axum_extra::routing::{RouterExt, TypedPath};
 use serde::{Deserialize, Serialize};
-use dotenvy::dotenv;
-use std::env;  
+use dotenvy::dotenv;  
 use dotenvy_macro::dotenv; 
 use datadb::connect_db; 
 use datadb::controllers::{
