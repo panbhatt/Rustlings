@@ -3,7 +3,5 @@
 pub use super::blocks::Entity as Blocks;
 pub use super::token_events::Entity as TokenEvents;
 pub use super::tokens::Entity as Tokens;
-pub use super::tx_history::Entity as TxHistory;
-pub use super::txs::Entity as Txs;
 pub use super::users::Entity as Users;
 pub use super::utxos::Entity as Utxos;

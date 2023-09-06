@@ -5,7 +5,5 @@ pub mod prelude;
 pub mod blocks;
 pub mod token_events;
 pub mod tokens;
-pub mod tx_history;
-pub mod txs;
 pub mod users;
 pub mod utxos;
