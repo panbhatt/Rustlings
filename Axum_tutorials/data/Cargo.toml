@@ -7,7 +7,7 @@ edition = "2021"
 
 [dependencies]
 axum = { version = "0.6.20", features = ["headers", "macros"] }
-sea-orm = { version = "0.12.2", features = ["runtime-tokio-rustls", "sqlx-postgres"] }
+sea-orm = { version = "0.12.2", features = ["runtime-tokio-rustls", "sqlx-postgres","macros"] }
 tokio = { "version" = "1.32.0", "features" = ["macros", "rt-multi-thread"] }
 serde = { version = "1.0.186", features = ["derive"] }
 serde_json = "1.0.105"

@@ -53,8 +53,8 @@ pub async fn user_detail_typed(params: PathParamTyped) -> impl IntoResponse {
 
 #[tokio::main]
  async fn main() {
-    info!("Application is starting up ");
     env_logger::init();
+    info!("Application is starting up ");
     dotenv().ok(); 
 
     
