@@ -21,7 +21,7 @@ pub struct RequestBlock {
     pub number: i64,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct ResponseBlock {
     status: String,
     message: String,
@@ -39,24 +39,35 @@ pub async fn get_block(
     Extension(db): Extension<DatabaseConnection>,
     Path(block_hash): Path<String>,
 ) -> Response {
-    info!(">> get_block function with arguments -> {}", block_hash);
+    info!(">> get_block function with arguments -> {}", block_hash.clone());
 
     //let block_db = BlockEntity::find_by_id(&block_hash).one(&db).await;
     //let all_blocks = blocks::Entity::find().all(&db).await.unwrap();
     //let block_db = blocks::find_by_id(block_hash).one(&db).await.unwrap();
-    let block_db = BlockEntity::find_by_id(block_hash).one(&db).await.unwrap(); 
+    let block_db = BlockEntity::find_by_id(block_hash.clone()).one(&db).await.unwrap(); 
+
+    if let Some(block) = block_db {
+        (
+            StatusCode::OK,
+            Json(BlockDataResponse {
+                hash: block.hash,
+                tx_count: 10,
+                number: 232332,
+            }),
+        )
+            .into_response()
+    } else {
+        (
+            StatusCode::NOT_FOUND,
+            Json( ResponseBlock {
+                status : "NOT_FOUND".to_owned(),
+                message : format!("Block Hash -> {} not found", block_hash.clone())
+            }),
+        )
+            .into_response()
+    }
 
     
-
-    (
-        StatusCode::OK,
-        Json(BlockDataResponse {
-            hash: "asdasfd".to_owned(),
-            tx_count: 10,
-            number: 232332,
-        }),
-    )
-        .into_response()
 }
 
 pub async fn create_block(
