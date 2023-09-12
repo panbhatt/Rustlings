@@ -3,13 +3,13 @@ use axum::http::StatusCode;
 use axum::response::{IntoResponse, Response};
 use axum::{Extension, Json};
 use log::info;
-use sea_orm::{ActiveModelTrait, DatabaseConnection, Set, EntityTrait};
+use sea_orm::{ActiveModelTrait, DatabaseConnection, EntityTrait, Set};
 //use crate::models::prelude::Blocks;
 //use super::super::models::blocks;
 
-//use crate::models::{blocks, blocks::Entity as BlockEntity}; DOes not work. 
-use super::super::models::blocks::Entity as BlockEntity; 
-use super::super::models::blocks as Blocks; 
+//use crate::models::{blocks, blocks::Entity as BlockEntity}; DOes not work.
+use super::super::models::blocks as Blocks;
+use super::super::models::blocks::Entity as BlockEntity;
 
 use serde::{Deserialize, Serialize};
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
@@ -39,12 +39,18 @@ pub async fn get_block(
     Extension(db): Extension<DatabaseConnection>,
     Path(block_hash): Path<String>,
 ) -> Response {
-    info!(">> get_block function with arguments -> {}", block_hash.clone());
+    info!(
+        ">> get_block function with arguments -> {}",
+        block_hash.clone()
+    );
 
     //let block_db = BlockEntity::find_by_id(&block_hash).one(&db).await;
     //let all_blocks = blocks::Entity::find().all(&db).await.unwrap();
     //let block_db = blocks::find_by_id(block_hash).one(&db).await.unwrap();
-    let block_db = BlockEntity::find_by_id(block_hash.clone()).one(&db).await.unwrap(); 
+    let block_db = BlockEntity::find_by_id(block_hash.clone())
+        .one(&db)
+        .await
+        .unwrap();
 
     if let Some(block) = block_db {
         (
@@ -59,15 +65,13 @@ pub async fn get_block(
     } else {
         (
             StatusCode::NOT_FOUND,
-            Json( ResponseBlock {
-                status : "NOT_FOUND".to_owned(),
-                message : format!("Block Hash -> {} not found", block_hash.clone())
+            Json(ResponseBlock {
+                status: "NOT_FOUND".to_owned(),
+                message: format!("Block Hash -> {} not found", block_hash.clone()),
             }),
         )
             .into_response()
     }
-
-    
 }
 
 pub async fn create_block(
