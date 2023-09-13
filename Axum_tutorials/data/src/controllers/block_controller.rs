@@ -107,3 +107,26 @@ pub async fn create_block(
     )
         .into_response()
 }
+
+/**
+ * This function will return all the blocks.
+ */
+pub async fn get_all_blocks(Extension(db): Extension<DatabaseConnection>) -> Response {
+    info!("Starting to get the get_all_blocks Data");
+    let all_blocks = BlockEntity::find().all(&db).await.unwrap();
+
+    let blocks_response :  Vec<BlockDataResponse>= all_blocks
+        .iter()
+        .map(|blk| BlockDataResponse {
+            hash: blk.hash.clone(),
+            tx_count: blk.tx_count.unwrap_or(0),
+            number: blk.number.unwrap_or(-1),
+        })
+        .collect();
+
+    (
+        StatusCode::OK,
+        Json(blocks_response),
+    )
+        .into_response()
+}

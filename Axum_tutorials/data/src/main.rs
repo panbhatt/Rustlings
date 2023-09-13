@@ -18,6 +18,7 @@ use datadb::connect_db;
 use datadb::controllers::{
     block_controller::get_block,
     block_controller::create_block, 
+    block_controller::get_all_blocks, 
 };
 use env_logger; 
 use log::{info, warn, error}; 
@@ -26,6 +27,7 @@ fn app(dc : DatabaseConnection) -> Router {
     Router::new()
         .route("/api/users/:user_id", get(user_detail))
         .route("/api/blocks/:block_id", get(get_block))
+        .route("/api/blocks", get(get_all_blocks))
         .route("/api/blocks", post(create_block))
         .layer(Extension(dc))
         .typed_get(user_detail_typed) // THis is the new way to run it. 
