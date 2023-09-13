@@ -72,3 +72,14 @@ Chapter 1: [Video_1_Guessing_Game](Video_1_Guessing_game/src/main.rs)
 - PLAYLIST [https://www.youtube.com/playlist?list=PLrmY5pVcnuE-_CP7XZ_44HN-mDrLQV4nS](https://www.youtube.com/playlist?list=PLrmY5pVcnuE-_CP7XZ_44HN-mDrLQV4nS) 
 - cargo watch -x run -> for continuously running the project.   
 - cargo doc --open -> it will open a browser and show the offline documentation of all the crates that the project is using. 
+
+## RUST ANALYZER (in case not working use these settings in VS CODE)
+```
+"rust-analyzer.inlayHints.typeHints.enable": true,
+    "rust-analyzer.inlayHints.renderColons": true,
+    "rust-analyzer.inlayHints.bindingModeHints.enable": true,
+    
+    "rust-analyzer.server.extraEnv": {
+        "RA_LOG": "rust_analyzer=info",
+    },
+```
