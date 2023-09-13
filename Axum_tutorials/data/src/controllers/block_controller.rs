@@ -120,9 +120,9 @@ pub async fn create_block(
 //Filters for below code.
 #[derive(Deserialize)]
 pub struct GetAllBlockQueryParams {
-    size: Option<u8>,
-    page: Option<u8>,
-    txCount: Option<u8>,
+    size: Option<u64>,
+    page: Option<u64>,
+    txCount: Option<u64>,
 }
 /**
  * This function will return all the blocks.
@@ -144,22 +144,11 @@ pub async fn get_all_blocks(
         );
     }
 
-    //check for Page and size
-    let mut page_no: u8 = 0;
-    let mut page_size: u8 = 0;
-    if let Some(pn) = query_params.page {
-        page_no = pn;
-    }
-
-    if let Some(ps) = query_params.size {
-        page_size = ps;
-    }
-
     // This line is used to get All Blocks.
     //let all_blocks = BlockEntity::find().all(&db).await.unwrap();
 
     let all_blocks = BlockEntity::find()
-        .filter(tx_count_filter)    // commit this with the URL http "localhost:3000/api/blocks?txCount=120" 
+        .filter(tx_count_filter)
         .all(&db)
         .await
         .unwrap();
@@ -168,6 +157,44 @@ pub async fn get_all_blocks(
     // .paginate(&db, (page_no as u64) * ( page_size as u64))
 
     let blocks_response: Vec<BlockDataResponse> = all_blocks
+        .iter()
+        .map(|blk| BlockDataResponse {
+            hash: blk.hash.clone(),
+            tx_count: blk.tx_count.unwrap_or(0),
+            number: blk.number.unwrap_or(-1),
+        })
+        .collect();
+
+    (StatusCode::OK, Json(blocks_response)).into_response()
+}
+
+/**
+ * This function will return all the blocks in pagination.
+ */
+pub async fn get_all_blocks_pagination(
+    Extension(db): Extension<DatabaseConnection>,
+    Query(query_params): Query<GetAllBlockQueryParams>,
+) -> Response {
+    info!("Starting to get the get_all_blocks Data Pagination");
+
+    //check for Page and size
+    let mut page_no: u64 = 0;
+    let mut page_size: u64 = 0;
+    if let Some(pn) = query_params.page {
+        page_no = pn;
+    }
+
+    if let Some(ps) = query_params.size {
+        page_size = ps;
+    }
+
+    let blocks_paginator = BlockEntity::find()
+        .order_by_asc(Blocks::Column::Hash)
+        .paginate(&db, page_size);
+
+    let all_paginated_blocks = blocks_paginator.fetch_page(page_no - 1).await.unwrap();
+
+    let blocks_response: Vec<BlockDataResponse> = all_paginated_blocks
         .iter()
         .map(|blk| BlockDataResponse {
             hash: blk.hash.clone(),
