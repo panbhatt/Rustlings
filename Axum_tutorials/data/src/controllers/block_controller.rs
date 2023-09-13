@@ -115,7 +115,7 @@ pub async fn get_all_blocks(Extension(db): Extension<DatabaseConnection>) -> Res
     info!("Starting to get the get_all_blocks Data");
     let all_blocks = BlockEntity::find().all(&db).await.unwrap();
 
-    let blocks_response :  Vec<BlockDataResponse>= all_blocks
+    let blocks_response: Vec<BlockDataResponse> = all_blocks
         .iter()
         .map(|blk| BlockDataResponse {
             hash: blk.hash.clone(),
@@ -124,9 +124,5 @@ pub async fn get_all_blocks(Extension(db): Extension<DatabaseConnection>) -> Res
         })
         .collect();
 
-    (
-        StatusCode::OK,
-        Json(blocks_response),
-    )
-        .into_response()
+    (StatusCode::OK, Json(blocks_response)).into_response()
 }
