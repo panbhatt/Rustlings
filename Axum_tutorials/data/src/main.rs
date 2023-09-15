@@ -4,7 +4,7 @@ use axum::{
     extract::Path,
     http::StatusCode,
     response::IntoResponse,
-    routing::{get, post, put},
+    routing::{get, post, put,patch},
     Extension, Json, Router,
 };
 use axum_extra::routing::{RouterExt, TypedPath};
@@ -13,6 +13,7 @@ use datadb::controllers::{
     block_controller::create_block, block_controller::get_all_blocks,
     block_controller::get_all_blocks_pagination, block_controller::get_block,
     block_controller::update_block,
+    block_controller::update_partial_block,
 };
 use dotenvy::dotenv;
 use dotenvy_macro::dotenv;
@@ -27,6 +28,7 @@ fn app(dc: DatabaseConnection) -> Router {
         .route("/api/blocks/paginate", get(get_all_blocks_pagination))
         .route("/api/blocks/:block_id", get(get_block))
         .route("/api/blocks/update/:hash", put(update_block))
+        .route("/api/blocks/update/:hash", patch(update_partial_block))
         .route("/api/blocks", get(get_all_blocks))
         .route("/api/blocks", post(create_block))
         .layer(Extension(dc))

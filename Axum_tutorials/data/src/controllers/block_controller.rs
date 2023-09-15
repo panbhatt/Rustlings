@@ -9,11 +9,13 @@ use log::info;
 use sea_orm::sea_query::Expr;
 use sea_orm::sea_query::IntoCondition;
 use sea_orm::Condition;
+use sea_orm::IntoActiveModel;
 use sea_orm::Order;
 use sea_orm::PaginatorTrait;
 use sea_orm::QueryFilter;
 use sea_orm::QueryOrder;
 use sea_orm::{ActiveModelTrait, DatabaseConnection, EntityTrait, Set};
+use serde_with::SerializeDisplay;
 //use crate::models::prelude::Blocks;
 //use super::super::models::blocks;
 
@@ -231,16 +233,90 @@ pub async fn update_block(
 
     let mut hash_filter_condition = Condition::all();
 
-    hash_filter_condition =
-        hash_filter_condition.add(Expr::col(Blocks::Column::Hash).eq(hash.clone()).into_condition());
+    hash_filter_condition = hash_filter_condition.add(
+        Expr::col(Blocks::Column::Hash)
+            .eq(hash.clone())
+            .into_condition(),
+    );
 
-    let result  = BlockEntity::update(update_block)
+    let result = BlockEntity::update(update_block)
         .filter(hash_filter_condition)
         .exec(&db)
         .await
         .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR);
 
-    info!(" RESULT of Update = {:#?}", result); 
+    println!(" RESULT of Update = {:#?}", result);
+
+    Ok(())
+}
+
+/**
+ * THis is only for PATCH request.
+ */
+#[derive(Deserialize, Serialize)]
+pub struct UpdatePartialBlockRequest {
+    pub number: Option<i64>,
+    #[serde(
+        default , // import for deseraizliation, 
+        skip_serializing_if = "Option::is_none", 
+        with = "::serde_with::rust::double_option", 
+    )]
+    pub tx_count: Option<Option<i64>>,
+    #[serde(
+        default , // import for deseraizliation, 
+        skip_serializing_if = "Option::is_none", 
+        with = "::serde_with::rust::double_option", 
+    )]
+    pub prev_block_hash: Option<Option<String>>,
+}
+/*
+This is PATCH Now
+PARTIAL Update - just update PREv_block_hash for a block
+*/
+pub async fn update_partial_block(
+    Extension(db): Extension<DatabaseConnection>,
+    Path(hash): Path<String>,
+    Json(partial_update_request_block): Json<UpdatePartialBlockRequest>,
+) -> Result<(), StatusCode> {
+    // FInd the BLock first.
+    let db_block_result = BlockEntity::find_by_id(hash.clone())
+        .one(&db)
+        .await
+        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR);
+
+    let db_block_option;
+    if db_block_result.is_ok() {
+        db_block_option = db_block_result.unwrap();
+    } else {
+        return Err(StatusCode::NOT_FOUND);
+    }
+
+    let mut hash_filter_condition = Condition::all();
+
+    hash_filter_condition = hash_filter_condition.add(
+        Expr::col(Blocks::Column::Hash)
+            .eq(hash.clone())
+            .into_condition(),
+    );
+    let mut db_block_org;
+
+    if let Some(db_block) = db_block_option {
+        db_block_org = db_block.into_active_model();
+        if let Some(prev_has) = partial_update_request_block.prev_block_hash {
+            db_block_org.prev_block_hash = Set(prev_has);
+        }
+
+        // Now UPdate
+        let update_result = BlockEntity::update(db_block_org)
+            .filter(hash_filter_condition)
+            .exec(&db)
+            .await
+            .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR);
+
+        println!("Update Result = {:#?}", update_result);
+    } else {
+        return Err(StatusCode::NOT_FOUND);
+    }
 
     Ok(())
 }
