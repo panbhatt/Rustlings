@@ -1,6 +1,7 @@
 use axum::extract::Path;
 use axum::extract::Query;
 use axum::http::header::GetAll;
+use axum::http::request;
 use axum::http::StatusCode;
 use axum::response::{IntoResponse, Response};
 use axum::{Extension, Json};
@@ -204,4 +205,42 @@ pub async fn get_all_blocks_pagination(
         .collect();
 
     (StatusCode::OK, Json(blocks_response)).into_response()
+}
+
+#[derive(Deserialize)]
+pub struct UpdateBlockRequest {
+    pub number: Option<i64>,
+    pub tx_count: Option<i64>,
+    pub prev_block_hash: Option<String>,
+}
+/*
+ATOMIC Update - Full Object without the PRIMARY KEY i.e. HASH
+*/
+pub async fn update_block(
+    Extension(db): Extension<DatabaseConnection>,
+    Path(hash): Path<String>,
+    Json(requestBlock): Json<UpdateBlockRequest>,
+) -> Result<(), StatusCode> {
+    let update_block = Blocks::ActiveModel {
+        hash: Set(hash.clone()),
+        number: Set(requestBlock.number),
+        tx_count: Set(requestBlock.tx_count),
+        prev_block_hash: Set(requestBlock.prev_block_hash),
+        ..Default::default()
+    };
+
+    let mut hash_filter_condition = Condition::all();
+
+    hash_filter_condition =
+        hash_filter_condition.add(Expr::col(Blocks::Column::Hash).eq(hash.clone()).into_condition());
+
+    let result  = BlockEntity::update(update_block)
+        .filter(hash_filter_condition)
+        .exec(&db)
+        .await
+        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR);
+
+    info!(" RESULT of Update = {:#?}", result); 
+
+    Ok(())
 }
