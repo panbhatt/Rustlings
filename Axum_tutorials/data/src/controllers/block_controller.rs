@@ -346,15 +346,17 @@ pub async fn delete_block(
                     status: "success".to_owned(),
                     message: format!("Block -> {} deleted successfully", hash),
                 }),
-            ).into_response()
+            )
+                .into_response()
         } else {
             (
                 StatusCode::INTERNAL_SERVER_ERROR,
                 Json(ResponseBlock {
                     status: "error".to_owned(),
-                    message: format!("An Error occured, while deleting Block -> {} ",hash),
+                    message: format!("An Error occured, while deleting Block -> {} ", hash),
                 }),
-            ).into_response()
+            )
+                .into_response()
         }
     } else {
         println!("Not found block with hash = {}", hash).clone();
@@ -367,4 +369,19 @@ pub async fn delete_block(
         )
             .into_response()
     }
+
+    // ANOTHER WAY IS
+    //let result =BlockEntity::delete_by_id(hash.clone()).exec(&db).await.unwrap_or_default();
+
+    //Another way, to delete many.
+    /*
+    let mut hash_filter_condition = Condition::all();
+
+    hash_filter_condition = hash_filter_condition.add(
+        Expr::col(Blocks::Column::Hash)
+            .eq(hash.clone())
+            .into_condition()
+    );
+    let result = BlockEntity::delete_many().filter(hash_filter_condition).exec(&db).await.unwrap_or_default();
+    */
 }
