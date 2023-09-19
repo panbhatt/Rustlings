@@ -5,7 +5,7 @@ use axum::http::request;
 use axum::http::StatusCode;
 use axum::response::{IntoResponse, Response};
 use axum::{Extension, Json};
-use log::info;
+use log::{info, warn};
 use sea_orm::sea_query::Expr;
 use sea_orm::sea_query::IntoCondition;
 use sea_orm::Condition;
@@ -325,13 +325,46 @@ pub async fn delete_block(
     Extension(db): Extension<DatabaseConnection>,
     Path(hash): Path<String>,
 ) -> Response {
+    let block_result = BlockEntity::find_by_id(hash.clone())
+        .one(&db)
+        .await
+        .unwrap_or_default();
+    if let Some(block) = block_result {
+        // Found the block.
+        println!("Block Details are => {:#?}", block);
+        let block_active_model = block.into_active_model();
 
-    (
-        StatusCode::OK,
-        Json(ResponseBlock {
-            status: "success".to_owned(),
-            message: "Block deleted successfully".to_owned(),
-        }),
-    )
-        .into_response()
+        let delete_result = BlockEntity::delete(block_active_model)
+            .exec(&db)
+            .await
+            .unwrap();
+        println!("Delete Result = {:#?}", delete_result);
+        if delete_result.rows_affected == 1 {
+            (
+                StatusCode::OK,
+                Json(ResponseBlock {
+                    status: "success".to_owned(),
+                    message: format!("Block -> {} deleted successfully", hash),
+                }),
+            ).into_response()
+        } else {
+            (
+                StatusCode::INTERNAL_SERVER_ERROR,
+                Json(ResponseBlock {
+                    status: "error".to_owned(),
+                    message: format!("An Error occured, while deleting Block -> {} ",hash),
+                }),
+            ).into_response()
+        }
+    } else {
+        println!("Not found block with hash = {}", hash).clone();
+        (
+            StatusCode::NOT_FOUND,
+            Json(ResponseBlock {
+                status: "error".to_owned(),
+                message: format!("Block -> {} not found successfully", hash.clone()),
+            }),
+        )
+            .into_response()
+    }
 }
