@@ -320,3 +320,18 @@ pub async fn update_partial_block(
 
     Ok(())
 }
+
+pub async fn delete_block(
+    Extension(db): Extension<DatabaseConnection>,
+    Path(hash): Path<String>,
+) -> Response {
+
+    (
+        StatusCode::OK,
+        Json(ResponseBlock {
+            status: "success".to_owned(),
+            message: "Block deleted successfully".to_owned(),
+        }),
+    )
+        .into_response()
+}
