@@ -15,6 +15,7 @@ use sea_orm::PaginatorTrait;
 use sea_orm::QueryFilter;
 use sea_orm::QueryOrder;
 use sea_orm::{ActiveModelTrait, DatabaseConnection, EntityTrait, Set};
+use chrono; 
 use serde_with::SerializeDisplay;
 //use crate::models::prelude::Blocks;
 //use super::super::models::blocks;
@@ -321,10 +322,19 @@ pub async fn update_partial_block(
     Ok(())
 }
 
+#[derive(Deserialize, Debug)]
+pub struct DeleleParams {
+    soft: Option<bool>,
+}
+
 pub async fn delete_block(
     Extension(db): Extension<DatabaseConnection>,
     Path(hash): Path<String>,
+    Query(delete_params): Query<DeleleParams>,
 ) -> Response {
+
+    println!("Date in UTFC as of now is = {:#?}", chrono::Utc::now()); 
+    println!("SOFT = {:#?}", delete_params); // IF itis SOFT, then just Updated it as above.
     let block_result = BlockEntity::find_by_id(hash.clone())
         .one(&db)
         .await
