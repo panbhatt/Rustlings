@@ -15,6 +15,8 @@ use datadb::controllers::{
     block_controller::update_block,
     block_controller::update_partial_block,
     block_controller::delete_block, 
+
+    account_controller::create_account, 
 };
 use dotenvy::dotenv;
 use dotenvy_macro::dotenv;
@@ -33,6 +35,8 @@ fn app(dc: DatabaseConnection) -> Router {
         .route("/api/blocks/update/:hash", patch(update_partial_block))
         .route("/api/blocks", get(get_all_blocks))
         .route("/api/blocks", post(create_block))
+
+        .route("/api/account", post(create_account))
         .layer(Extension(dc))
         .typed_get(user_detail_typed) // THis is the new way to run it.
 }
