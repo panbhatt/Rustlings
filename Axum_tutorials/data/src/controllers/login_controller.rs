@@ -47,7 +47,7 @@ pub async fn logout(
     authorization: TypedHeader<Authorization<Bearer>>,
 ) -> Response {
     let token = authorization.token();
-    println!("AUTHORIzATION BEARER : {:?}", token);
+    println!("AUTHORIzATION BEARER : {:?}", token); // nowe we can check everything with the TOKEN. 
 
     (
         StatusCode::OK,

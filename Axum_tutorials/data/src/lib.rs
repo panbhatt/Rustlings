@@ -1,5 +1,6 @@
 pub mod controllers; 
 pub mod models; 
+pub mod middlewares;
 
 
 use sea_orm::{Database,DatabaseConnection, DbErr} ; 

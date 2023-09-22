@@ -6,6 +6,7 @@ use axum::{
     response::IntoResponse,
     routing::{get, post, put,patch, delete},
     Extension, Json, Router,
+    middleware, 
 };
 use axum_extra::routing::{RouterExt, TypedPath};
 use datadb::connect_db;
@@ -20,6 +21,10 @@ use datadb::controllers::{
     login_controller::login, 
     login_controller::logout
 };
+
+use datadb::middlewares:: {
+    AuthMiddleware::verify_token
+}; 
 use dotenvy::dotenv;
 use dotenvy_macro::dotenv;
 use env_logger;
@@ -29,6 +34,9 @@ use serde::{Deserialize, Serialize};
 
 fn app(dc: DatabaseConnection) -> Router {
     Router::new()
+        
+        .route("/api/account", post(create_account))   // Remember it works invert & portected by guard.
+        .route_layer(middleware::from_fn(verify_token))
         .route("/api/users/:user_id", get(user_detail))
         .route("/api/blocks/paginate", get(get_all_blocks_pagination))
         .route("/api/blocks/:block_id", get(get_block))
@@ -38,7 +46,6 @@ fn app(dc: DatabaseConnection) -> Router {
         .route("/api/blocks", get(get_all_blocks))
         .route("/api/blocks", post(create_block))
 
-        .route("/api/account", post(create_account))
         .route("/api/login", post(login))
         .route("/api/logout", get(logout))
         .layer(Extension(dc))
