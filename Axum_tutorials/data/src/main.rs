@@ -18,6 +18,7 @@ use datadb::controllers::{
 
     account_controller::create_account, 
     login_controller::login, 
+    login_controller::logout
 };
 use dotenvy::dotenv;
 use dotenvy_macro::dotenv;
@@ -39,6 +40,7 @@ fn app(dc: DatabaseConnection) -> Router {
 
         .route("/api/account", post(create_account))
         .route("/api/login", post(login))
+        .route("/api/logout", get(logout))
         .layer(Extension(dc))
         .typed_get(user_detail_typed) // THis is the new way to run it.
 }

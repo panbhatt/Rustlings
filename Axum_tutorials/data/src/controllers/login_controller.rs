@@ -1,4 +1,6 @@
+use axum::headers::{authorization::Bearer, Authorization};
 use axum::response::{IntoResponse, Response};
+use axum::TypedHeader;
 use axum::{http::StatusCode, Extension, Json};
 use sea_orm::DatabaseConnection;
 use serde::{Deserialize, Serialize};
@@ -35,6 +37,23 @@ pub async fn login(
         Json(LoginUserResponse {
             status: "success".to_owned(),
             token: "LSDFLSDJSD".to_owned(),
+        }),
+    )
+        .into_response()
+}
+
+pub async fn logout(
+    Extension(db): Extension<DatabaseConnection>,
+    authorization: TypedHeader<Authorization<Bearer>>,
+) -> Response {
+    let token = authorization.token();
+    println!("AUTHORIzATION BEARER : {:?}", token);
+
+    (
+        StatusCode::OK,
+        Json(LoginUserResponse {
+            status: "success".to_owned(),
+            token: "".to_owned(),
         }),
     )
         .into_response()
