@@ -28,6 +28,12 @@ pub async fn create_account(
 ) -> Response {
     print!("Request User = {:?}", request_user);
     //println!("I SIZE FROM THE AUTH HEADER IS = {}", age);
+    let hashed_pwd = hash_password(request_user.password.clone()).unwrap();
+    println!("Hashed Password is = {}", hashed_pwd);
+    println!(
+        "Verified Hashed Password is = {:#?}",
+        verify_password(request_user.password.clone(), hashed_pwd.as_str())
+    );
 
     (
         StatusCode::NOT_IMPLEMENTED,
@@ -39,4 +45,22 @@ pub async fn create_account(
         .into_response()
 
     // CHecedk block_controller for inserting in the Database.
+}
+
+fn hash_password(password: String) -> Result<String, String> {
+    let hashed_pwd = bcrypt::hash(password, 14);
+    if let Ok(hp) = hashed_pwd {
+        Ok(hp)
+    } else {
+        Err(hashed_pwd.unwrap())
+    }
+}
+
+fn verify_password(password: String, hashed_pwd: &str) -> Result<bool, String> {
+    let result = bcrypt::verify(password, hashed_pwd);
+    if result.is_err() {
+        Err(result.err().unwrap().to_string())
+    } else {
+        Ok(result.unwrap())
+    }
 }
