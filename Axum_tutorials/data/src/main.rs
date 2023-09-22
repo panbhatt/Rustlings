@@ -3,28 +3,22 @@
 use axum::{
     extract::Path,
     http::StatusCode,
+    middleware,
     response::IntoResponse,
-    routing::{get, post, put,patch, delete},
+    routing::{delete, get, patch, post, put},
     Extension, Json, Router,
-    middleware, 
 };
 use axum_extra::routing::{RouterExt, TypedPath};
 use datadb::connect_db;
 use datadb::controllers::{
-    block_controller::create_block, block_controller::get_all_blocks,
+    account_controller::create_account, block_controller::create_block,
+    block_controller::delete_block, block_controller::get_all_blocks,
     block_controller::get_all_blocks_pagination, block_controller::get_block,
-    block_controller::update_block,
-    block_controller::update_partial_block,
-    block_controller::delete_block, 
-
-    account_controller::create_account, 
-    login_controller::login, 
-    login_controller::logout
+    block_controller::update_block, block_controller::update_partial_block,
+    login_controller::login, login_controller::logout, token_controller::create_token,
 };
 
-use datadb::middlewares:: {
-    AuthMiddleware::verify_token
-}; 
+use datadb::middlewares::AuthMiddleware::verify_token;
 use dotenvy::dotenv;
 use dotenvy_macro::dotenv;
 use env_logger;
@@ -34,8 +28,7 @@ use serde::{Deserialize, Serialize};
 
 fn app(dc: DatabaseConnection) -> Router {
     Router::new()
-        
-        .route("/api/account", post(create_account))   // Remember it works invert & portected by guard.
+        .route("/api/account", post(create_account)) // Remember it works invert & portected by guard.
         .route_layer(middleware::from_fn(verify_token))
         .route("/api/users/:user_id", get(user_detail))
         .route("/api/blocks/paginate", get(get_all_blocks_pagination))
@@ -45,9 +38,9 @@ fn app(dc: DatabaseConnection) -> Router {
         .route("/api/blocks/update/:hash", patch(update_partial_block))
         .route("/api/blocks", get(get_all_blocks))
         .route("/api/blocks", post(create_block))
-
         .route("/api/login", post(login))
         .route("/api/logout", get(logout))
+        .route("/api/token/:username", get(create_token))
         .layer(Extension(dc))
         .typed_get(user_detail_typed) // THis is the new way to run it.
 }
