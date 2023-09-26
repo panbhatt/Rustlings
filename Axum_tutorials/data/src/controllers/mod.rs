@@ -6,3 +6,5 @@ pub mod account_controller;
 pub mod login_controller;
 
 pub mod token_controller; 
+
+pub mod error_controller;

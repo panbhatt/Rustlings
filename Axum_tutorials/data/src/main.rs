@@ -16,6 +16,7 @@ use datadb::controllers::{
     block_controller::get_all_blocks_pagination, block_controller::get_block,
     block_controller::update_block, block_controller::update_partial_block,
     login_controller::login, login_controller::logout, token_controller::create_token,token_controller::verify_token as verify_tk,
+    error_controller::return_api_error, 
 };
 
 use datadb::middlewares::AuthMiddleware::verify_token;
@@ -30,6 +31,7 @@ fn app(dc: DatabaseConnection) -> Router {
     Router::new()
         .route("/api/account", post(create_account)) // Remember it works invert & portected by guard.
         .route_layer(middleware::from_fn(verify_token))
+        .route("/api/error", get(return_api_error))
         .route("/api/users/:user_id", get(user_detail))
         .route("/api/blocks/paginate", get(get_all_blocks_pagination))
         .route("/api/blocks/:block_id", get(get_block))
@@ -42,6 +44,7 @@ fn app(dc: DatabaseConnection) -> Router {
         .route("/api/logout", get(logout))
         .route("/api/token/:username", get(create_token))
         .route("/api/token/verify/:token", get(verify_tk))
+        
         .layer(Extension(dc))
         .typed_get(user_detail_typed) // THis is the new way to run it.
 }
