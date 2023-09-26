@@ -2,9 +2,11 @@ use axum::{
     headers::{authorization::Bearer, Authorization, HeaderMapExt},
     http::{Request, StatusCode},
     middleware::Next,
-    response::Response,
+    response::{IntoResponse, Response},
+    Json,
 };
-use sea_orm::DatabaseConnection;
+
+use serde::{Deserialize, Serialize};
 
 pub struct ApiError {
     code: StatusCode,
@@ -26,7 +28,7 @@ impl ApiError {
 }
 
 impl IntoResponse for ApiError {
-    fn into_response(self) -> axum::response::Response {
+    fn into_response(self) -> Response {
         (
             self.code,
             Json(ResponseMessage {
@@ -38,9 +40,17 @@ impl IntoResponse for ApiError {
 }
 
 pub async fn generate_error_from_error_route<T>(
-    mut request: Request<T>,
+    req: Request<T>,
     next: Next<T>,
 ) -> Result<Response, ApiError> {
-    request
-    Ok(ApiError::new(StatusCode::UNAUTHORIZED, "Unable to process, as it is error route"))
+    println!("The request is - : {}", req.uri());
+
+    if req.uri().to_owned() == "/api/error" {
+        Err(ApiError::new(
+            StatusCode::UNAUTHORIZED,
+            "Unable to process, as it is error route. FROM MIDDLEWARE",
+        ))?
+    } else {
+        Ok(next.run(req).await)
+    }
 }

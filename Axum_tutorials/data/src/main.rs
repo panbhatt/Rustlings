@@ -20,6 +20,7 @@ use datadb::controllers::{
 };
 
 use datadb::middlewares::AuthMiddleware::verify_token;
+use datadb::middlewares::ErrorUrlMiddleware::generate_error_from_error_route; 
 use dotenvy::dotenv;
 use dotenvy_macro::dotenv;
 use env_logger;
@@ -32,6 +33,7 @@ fn app(dc: DatabaseConnection) -> Router {
         .route("/api/account", post(create_account)) // Remember it works invert & portected by guard.
         .route_layer(middleware::from_fn(verify_token))
         .route("/api/error", get(return_api_error))
+        .route_layer(middleware::from_fn(generate_error_from_error_route))
         .route("/api/users/:user_id", get(user_detail))
         .route("/api/blocks/paginate", get(get_all_blocks_pagination))
         .route("/api/blocks/:block_id", get(get_block))
