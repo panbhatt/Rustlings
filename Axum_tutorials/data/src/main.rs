@@ -46,6 +46,7 @@ fn app(dc: DatabaseConnection) -> Router {
         .route("/api/logout", get(logout))
         .route("/api/token/:username", get(create_token))
         .route("/api/token/verify/:token", get(verify_tk))
+        //.with_state() // This also can be used. , rather then passing EXTENSION for data that needs to be passed down the line. 
         
         .layer(Extension(dc))
         .typed_get(user_detail_typed) // THis is the new way to run it.
