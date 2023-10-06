@@ -14,3 +14,12 @@ fn main() {
     warn!("{:#?}", "The lamb was sure to go");
 
 }
+
+// RUN VIA : RUST_LOG=TRACE cargo run --bin log_env_logger  
+// RUST_LOG=off -> to disable logging for all modules. 
+
+// For ALL the other packages: 
+//RUST_LOG=off,Useful_code=trace
+   //Useful_code is the name of our application
+
+//RUST_LOG=errir : Error from all libs and TRACE level for our application. 
