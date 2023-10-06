@@ -1,15 +1,15 @@
-use log::debug;
-use log::error;
-use log::info;
-use log::warn;
-
+use log::{self, LevelFilter, info, debug};
+use log4rs::append::file::FileAppender;
+use log4rs::config::{Appender, Config, Root};
+use log4rs::encode::pattern::PatternEncoder;
 
 
 fn main() {
-    env_logger::init();
-    debug!("Mary has a little lamb");
-    error!("{}", "Its fleece was white as snow");
-    info!("{:?}", "And every where that Mary went");
-    warn!("{:#?}", "The lamb was sure to go");
+    println!("INITIAL LOGGER"); 
+    log4rs::init_file("log4rs.yml", Default::default()).unwrap();
 
+    info!("PANKAJ BHATT - INFO");
+    debug!("PANKAJ BHATT - DEBUG");
 }
+
+

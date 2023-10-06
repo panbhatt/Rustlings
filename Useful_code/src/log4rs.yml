@@ -1,0 +1,40 @@
+appenders:
+  stdout:
+    kind: console
+
+  # Appender for the step strategy
+  step_ap:
+    kind: rolling_file
+    path: logs/step/step.log
+    encoder:
+      pattern: "{d(%Y-%m-%d %H:%M:%S)} | {({l}):5.5} | {f}:{L} — {m}{n}"
+    policy:
+      trigger:
+        kind: size
+        limit: 30 mb
+      roller:
+        kind: fixed_window
+        pattern: logs/step/step_{}.gz
+        count: 5
+        base: 1
+        
+  # Appender for the strong level strategy
+  strong_level_ap:
+    path: logs/strong_level/strong_level.log
+    # other settings
+
+root:
+  level: debug
+  appenders:
+    - stdout
+
+loggers:
+  step:
+    level: debug
+    appenders:
+      - step_ap
+      
+  strong_level:
+    level: debug
+    appenders:
+      - strong_level_ap
