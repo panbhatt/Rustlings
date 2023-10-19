@@ -1,10 +1,14 @@
+use crossbeam::channel::bounded;
+
 
 
 fn main() {
     let arr = [1,25,-1,34,02,300]; 
     let max= find_max(&arr); 
     println!("{:?}", max);
-    assert_eq!(max, Some(300)); 
+    assert_eq!(max, Some(300));
+
+    println!("============= PARALLEL PROCESSING  ===========") ; 
 }
 
 /**
@@ -31,6 +35,19 @@ fn find_max(arr : &[i32]) -> Option<i32> {
     });
 
     result.unwrap()
+
+}
+
+fn parallel_processing() {
+
+    let (sender1, receiver1) = bounded::<i32>(1); 
+    let (sender2, receiver2) = bounded::<i32>(1) ; 
+
+    
+
+    
+     
+
 
 }
 
