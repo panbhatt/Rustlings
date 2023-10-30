@@ -1,6 +1,8 @@
 use lazy_static::lazy_static; 
 use std::sync::Mutex; 
 
+// RUN cargo run --bin threads_globalstate
+
 lazy_static! {
     #[derive(Debug)]
     static ref FRUIT : Mutex<Vec<String>> = Mutex::new(Vec::new()); 
