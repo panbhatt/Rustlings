@@ -29,6 +29,6 @@ struct Args {
 }
 
 
-// RUN argo run --bin clap_derive_usage --  -D true -N 5 
+// RUN cargo run --bin clap_derive_usage --  -D true -N 5 
 
  // SEE MORE : https://blog.logrocket.com/command-line-argument-parsing-rust-using-clap/
