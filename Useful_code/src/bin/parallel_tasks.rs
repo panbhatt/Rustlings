@@ -13,4 +13,9 @@ fn main() {
 
     println!("All Even Ages -> {:?} ", ages.par_iter().all(|p| p > &0)); // All matches the condition. 
     println!("Any Even Ages -> {:?} ", ages.par_iter().any(|p| p%2 == 0)); // Any matches the condition. 
+
+    // Using any ().  Find first EVEN Number. Similary , we have find_first and first_last()  too.
+    println!("Divide by 3 ->  {:?}", ages.par_iter().find_any(|p| *p % 3 == 0));
+    println!("Divide by 15 ->  {:?}", ages.par_iter().find_any(|p| *p % 15 == 0));
+
 }
