@@ -1,3 +1,4 @@
+use rand::{thread_rng, distributions::Alphanumeric, Rng};
 use rayon::prelude::*;
 
 fn main() {
@@ -17,5 +18,15 @@ fn main() {
     // Using any ().  Find first EVEN Number. Similary , we have find_first and first_last()  too.
     println!("Divide by 3 ->  {:?}", ages.par_iter().find_any(|p| *p % 3 == 0));
     println!("Divide by 15 ->  {:?}", ages.par_iter().find_any(|p| *p % 15 == 0));
+
+    // UNSORTEd Vector in parallel. 
+    let mut unsorted_vec = vec![String::new(); 50]; 
+    unsorted_vec.par_iter_mut().for_each(|p|  {
+        let  rng = thread_rng(); 
+        *p = rng.sample_iter(&Alphanumeric).take(7).map(char::from).collect(); 
+    });
+
+    unsorted_vec.sort_unstable();
+    println!("SORTED STRING -> {:?}", unsorted_vec); 
 
 }
