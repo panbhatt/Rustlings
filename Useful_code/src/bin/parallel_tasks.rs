@@ -1,5 +1,7 @@
+use glob::glob_with;
 use rand::{thread_rng, distributions::Alphanumeric, Rng};
 use rayon::prelude::*;
+use error_chain; 
 
 struct Person {
     age : u32, 
@@ -41,5 +43,10 @@ fn main() {
 
     let sum_over_25 : u32 = person_list.par_iter().map(|x| x.age).filter(|x| x > &25).sum() ; 
     println!("Sum of Ages over 25 =  {} ", sum_over_25); 
+
+    let options=  Default::default(); 
+    let files : Vec<_>= glob_with("*.rs", options).unwrap().filter_map(|x| x.ok()).collect(); 
+    println!("FILES -> {:?}", files); 
+
 
 }
