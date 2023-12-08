@@ -2,8 +2,7 @@
 use bitflags::bitflags;
 use std::fmt; 
 
-
-
+// https://rust-lang-nursery.github.io/rust-cookbook/data_structures/bitfield.html#define-and-operate-on-a-type-represented-as-a-bitfield 
 
 bitflags!{
     #[derive(Debug)]
@@ -41,6 +40,9 @@ fn main() {
 
     e1.clear(); 
     println!("After Clear ->  {}", e1); 
+
+    println!("AND ->          {}", MyFlags::FLAG_A & MyFlags::FLAG_B);   // Bitwise AND
+    println!("OR ->           {}", MyFlags::FLAG_A | MyFlags::FLAG_B);  // Bitwise OR. 
 
     
 
