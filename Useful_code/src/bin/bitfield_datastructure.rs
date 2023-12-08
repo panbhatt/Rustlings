@@ -1,5 +1,7 @@
 
-use bitflags::bitflags; 
+use bitflags::bitflags;
+use std::fmt; 
+
 
 
 
@@ -17,14 +19,29 @@ bitflags!{
 
 impl MyFlags {
     pub fn clear(&mut self) -> &mut MyFlags {
-        self.set(MyFlags::FLAG_A, false);
+        self.set(MyFlags::FLAG_ABC , false);
+        
         self
+    }
+
+}
+
+impl fmt::Display for MyFlags {
+    fn fmt(&self , f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{:032b}", self.bits())
     }
 }
 
+
+
 fn main() {
-    let e1 = MyFlags::FLAG_ABC; 
+    let mut e1 = MyFlags::FLAG_ABC; 
     println!("{:?}", e1.bits()); // This will print 7. 
+    println!("Before Clear -> {}", e1);   // This will print the bit pattern. 
+
+    e1.clear(); 
+    println!("After Clear ->  {}", e1); 
+
     
 
     
